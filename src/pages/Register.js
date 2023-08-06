@@ -26,27 +26,50 @@ function Register() {
   const handelSubmit = async (event) => {
     event.preventDefault();
     if (handelValidation()) {
-      console.log("in validation", registerRoute);
-      const { username, email, password } = value;
-      try {
-        const { data , status } = await axios.post(registerRoute, {
-          username,
-          email,
-          password,
-        });
-        console.log(data ,  status)
-        if(status === 203)
-        {
-            toast.error(
-                data,
-                toastVeriable
-              );
-        }
-        else
-        {
-            localStorage.setItem("chat-app-user", JSON.stringify(data));
-            navigate("/");
-        }
+      const { email, username, password } = value;
+      const { data } = await axios.post(registerRoute, {
+        username,
+        email,
+        password,
+      });
+
+      if (data.status === false) {
+        toast.error(data.msg, toastVeriable);
+      }
+      if (data.status === true) {
+        localStorage.setItem(
+          process.env.REACT_APP_LOCALHOST_KEY,
+          JSON.stringify(data.user)
+        );
+        navigate("/");
+      }
+    }
+  };
+
+  // const handelSubmit = async (event) => {
+  //   event.preventDefault();
+  //   if (handelValidation()) {
+  //     // console.log("in validation", registerRoute);
+  //     const { username, email, password } = value;
+  //     try {
+  //       const { data , status } = await axios.post(registerRoute, {
+  //         username,
+  //         email,
+  //         password,
+  //       });
+        // console.log(data ,  status)
+        // if(status === false)
+        // {
+        //     toast.error(
+        //         data,
+        //         toastVeriable
+        //       );
+        // }
+        // else
+        // {
+        //     localStorage.setItem("chat-app-user", JSON.stringify(data));
+        //     navigate("/");
+        // }
         // if (data.ststus === false) {
         //   toast.error(data.msg, toastVeriable);
         // }
@@ -54,11 +77,11 @@ function Register() {
         //   localStorage.setItem("chat-app-user", JSON.stringify(data.user)); // pass user information i localstorage in not json formate
         //   navigate("/");
         // }
-      } catch (err) {
-        console.log(err.message);
-      }
-    }
-  };
+  //     } catch (err) {
+  //       console.log(err.message);
+  //     }
+  //   }
+  // };
 
   const handelValidation = () => {
     const { password, conformpassword, username, email } = value;
