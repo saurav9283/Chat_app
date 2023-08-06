@@ -31,13 +31,11 @@ function Login() {
           username,
           password,
         });
-        console.log(data ,  status)
-        if(status === 203)
+        // console.log(data ,  status)
+        if(data.status === false)
         {
-            toast.error(
-                data,
-                toastVeriable
-              );
+          console.log(data ,  status)
+          toast.error(data.msg, toastVeriable);
         }
         else
         {
