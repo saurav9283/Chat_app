@@ -23,12 +23,12 @@ function Avatar() {
     theme: "dark",
   };
 
-  // useEffect(()=> {
-  //   if(!localStorage.getItem("chat-app-user")) 
-  //   {
-  //     navigate('/')
-  //   }
-  // },[])
+  useEffect(()=> {
+    if(!localStorage.getItem("chat-app-user")) 
+    {
+      navigate('/')
+    }
+  },[])
 
   const setProfilePicture = async () => {
     if (selectedAvatar === undefined) {
