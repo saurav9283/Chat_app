@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Logo from "../assects/logo.svg";
 import "./Contacts.css";
 
-function Contacts({ contacts, currentuser, setCurrentChat }) {
+function Contacts({ contacts, currentuser , changeChat }) {
   // const [currentUserName, setCurrentUserName] = useState(undefined);
   // const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined); // for the chat
@@ -15,7 +15,8 @@ function Contacts({ contacts, currentuser, setCurrentChat }) {
   // }, [currentuser]);
 
   const changeCurrentChat = (index, contact) => {
-    setCurrentSelected(index);
+    setCurrentSelected(index)
+    changeChat(contact)
     // setCurrentChat(contact); // Call the function to update the current chat
   };
   return (

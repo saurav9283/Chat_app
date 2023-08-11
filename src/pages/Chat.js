@@ -5,11 +5,13 @@ import { useNavigate } from "react-router-dom";
 import Contacts from "../component/Contacts";
 import { allusersRoute } from "../utile/APIRouts.js";
 import { setAvatar } from "../pages/Avatar.js";
+import Welcome from "../component/Welcome";
 
 function Chat() {
   const navigate = useNavigate();
   const [contacts, setcontacts] = useState([]);
   const [currentuser, setCurrentUser] = useState(undefined);
+  const [currentChat , setCurrentChat] = useState(undefined);
 
   useEffect(() => {
     // for checking usere exist in localstorage or not
@@ -33,7 +35,7 @@ function Chat() {
       try {
         if (currentuser) {
           const data = await axios.get(`${allusersRoute}`);
-          console.log(data)
+          // console.log(data)
           setcontacts(data.data);
         } 
         // else {
@@ -46,10 +48,16 @@ function Chat() {
     fetchdata();
   }, [currentuser]);
 
+  const handelChatChange = (chat)=>{
+    setCurrentChat(chat);
+  };
+
+
   return (
     <div className="box">
       <div className="container2">
-        <Contacts contacts={contacts} currentuser={currentuser} />
+        <Contacts contacts={contacts} currentuser={currentuser} changeChat = {handelChatChange} />
+        <Welcome currentuser={currentuser} />
       </div>
     </div>
   );
