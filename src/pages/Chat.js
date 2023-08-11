@@ -6,12 +6,14 @@ import Contacts from "../component/Contacts";
 import { allusersRoute } from "../utile/APIRouts.js";
 import { setAvatar } from "../pages/Avatar.js";
 import Welcome from "../component/Welcome";
+import ChatContainer from "../component/ChatContainer";
 
 function Chat() {
   const navigate = useNavigate();
   const [contacts, setcontacts] = useState([]);
   const [currentuser, setCurrentUser] = useState(undefined);
   const [currentChat , setCurrentChat] = useState(undefined);
+  const [isloaded , setIsLoaded] = useState(false);
 
   useEffect(() => {
     // for checking usere exist in localstorage or not
@@ -23,6 +25,7 @@ function Chat() {
       } else {
         const userFromLocalStorage = JSON.parse(storedUser);
         setCurrentUser(userFromLocalStorage);
+        setIsLoaded(true);
       }
     };
 
@@ -57,7 +60,11 @@ function Chat() {
     <div className="box">
       <div className="container2">
         <Contacts contacts={contacts} currentuser={currentuser} changeChat = {handelChatChange} />
-        <Welcome currentuser={currentuser} />
+        {
+          isloaded && currentChat === undefined ?
+          (<Welcome currentuser={currentuser} />) : (<ChatContainer currentuser={currentuser}/>)
+        }
+
       </div>
     </div>
   );
