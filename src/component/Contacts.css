@@ -1,27 +1,27 @@
 .container1{
     display: grid;
-    grid-template-columns: 10% 75% 15%;
+    grid-template-rows: 10% 75% 15%;
     overflow: hidden;
      background-color: #080420; 
      /* background-color: antiquewhite; */
 }
-.brand{
+.brand1{
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
 }
 
-.image{
-    height: 22rem;
+.brand1 img{
+    height: 2rem;
 }
 
-.brand h3{
+.brand1 h3{
     color: white;
     text-transform: uppercase;
 }
 
-.contacts{
+.contacts1{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,7 +29,7 @@
     gap: 0.8rem;
 }
 
-.contact {
+.contact1 {
     background-color: #ffffff34;
     min-height: 5rem;
     cursor: pointer;
@@ -40,4 +40,47 @@
     gap: 1rem;
     align-items: center;
     transition: 0.5s ease-in-out;
-} 
+}
+
+.avatar1 img{
+    height: 3rem;
+}
+
+.username1 h3{
+    color: white;
+}
+
+.selected1 {
+    background-color: #9a86f3;
+}
+
+.current-user1 {
+    background-color: #0d0d30;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.avatar2 img{
+    height: 4rem;
+    max-inline-size: 100%;
+}
+
+.username1 h2{
+    color: white;
+}
+
+@media  screen and (min-width: 720px) and (max-width:1080px) {
+    /* gap: 0.5 rem; */
+    .contact1{
+        gap: 0.5 rem;
+    }
+    .username1 h2{
+        font-size: 1 rem;
+    }
+}
+
+.contacts1::-webkit-scrollbar {
+    width: 0.2rem;
+}

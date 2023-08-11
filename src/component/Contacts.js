@@ -22,41 +22,41 @@ function Contacts({ contacts, currentuser, setCurrentChat }) {
     <>
       {currentuser && (
         <div className="container1">
-          <div className="brand">
-            <img src={Logo} alt="logo" className="image"/>
+          <div className="brand1">
+            <img src={Logo} alt="logo"/>
             <h3>snappy</h3>
           </div>
-          <div className="contacts">
+          <div className="contacts1">
             {contacts.map((contact, index) => {
               if(currentuser.user._id !== contact._id)
               return (
                 <div
                   key={contact._id}
-                  className={`contact ${
-                    index === currentSelected ? "selected" : ""
+                  className={`contact1 ${
+                    index === currentSelected ? "selected1" : ""
                   }`}
                   onClick={() => changeCurrentChat(index, contact)}
                 >
-                  <div className="avatar">
+                  <div className="avatar1">
                     
-                    <img className="profile" src={`data:image/svg+xml;base64,${contact.avatarImage}`} alt="avatar" />
+                    <img  src={`data:image/svg+xml;base64,${contact.avatarImage}`} alt="avatar" />
 
                   </div>
-                  <div className="username">
+                  <div className="username1">
                     <h3>{contact.username}</h3>
                   </div>
                 </div>
               );
             })}
           </div>
-          <div className="current-user">
-            <div className="avatar">
+          <div className="current-user1">
+            <div className="avatar2">
               <img
                 src={`data:image/svg+xml;base64,${currentuser.user.avatarImage}`}
                 alt="avatar"
               />
             </div>
-            <div className="username">
+            <div className="username1">
               <h2>{currentuser.user.username}</h2>
             </div>
           </div>
