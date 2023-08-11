@@ -5,49 +5,51 @@ import "./Register.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { loginRoute } from "../utile/APIRouts.js";
+import { loginRoute } from "../utile/APIRouts"; // Corrected typo
 
 function Login() {
   const navigate = useNavigate();
-  const [value, setvalue] = useState({
+  const [value, setValue] = useState({
     username: "",
     password: "",
   });
-  const toastVeriable = {
-    possition: "bottom-right",
+  const toastVariables = {
+    position: "bottom-right", // Corrected typo
     autoClose: 8000,
     pauseOnHover: true,
     draggable: true,
     theme: "dark",
   };
 
-  useEffect(()=> {     //should v add
-    if(localStorage.getItem("chat-app-user")) 
-    {
-      navigate('/')
+  useEffect(() => {
+    if (localStorage.getItem("chat-app-user")) {
+      navigate("/");
     }
-  },[])
+  }, [navigate]); // Added navigate as a dependency
 
-  const handelSubmit = async (event) => {
+  const handleValidation = () => {
+    const { password, username } = value;
+    if (password === "" || username === "") { // Fixed condition for username
+      toast.error("Username and Password are required", toastVariables);
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (event) => { // Renamed handelSubmit to handleSubmit
     event.preventDefault();
-    if (handelValidation()) {
-      // console.log("in validation", loginRoute);
+    if (handleValidation()) {
       const { username, password } = value;
       try {
-        const { data , status } = await axios.post(loginRoute, {
+        const { data, status } = await axios.post(loginRoute, {
           username,
           password,
         });
-        // console.log(data ,  status)
-        if(data.status === false)
-        {
-          // console.log(data ,  status)
-          toast.error(data.msg, toastVeriable);
-        }
-        else
-        {
-            localStorage.setItem("chat-app-user", JSON.stringify(data));
-            navigate("/");
+        if (status === 200 && data.status === false) { // Added status check
+          toast.error(data.msg, toastVariables);
+        } else {
+          localStorage.setItem("chat-app-user", JSON.stringify(data));
+          navigate("/");
         }
       } catch (err) {
         console.log(err.message);
@@ -55,34 +57,16 @@ function Login() {
     }
   };
 
-  const handelValidation = () => {
-    const { password, username } = value;
-    if (password === "") {
-      toast.error(
-        "Email and Password is required",
-        toastVeriable
-      );
-      return false;
-    } else if (username.length === "") {
-      toast.error(
-        "Email and Password is required",
-        toastVeriable
-      );
-      return false;
-    } 
-    return true;
-  };
-
-  const handelChange = (event) => {
-    setvalue({ ...value, [event.target.name]: event.target.value });
+  const handleChange = (event) => { // Renamed handelChange to handleChange
+    setValue({ ...value, [event.target.name]: event.target.value });
   };
 
   return (
     <>
       <div className="form-container">
-        <form onSubmit={(event) => handelSubmit(event)} className="form">
+        <form onSubmit={handleSubmit} className="form">
           <div className="brand">
-            <img src={Logo} alt="Logo"></img>
+            <img src={Logo} alt="Logo" />
             <h1>snappy</h1>
           </div>
           <input
@@ -90,13 +74,13 @@ function Login() {
             placeholder="Username"
             name="username"
             min="3"
-            onChange={(e) => handelChange(e)}
+            onChange={handleChange}
           />
           <input
             type="password"
-            placeholder="password"
+            placeholder="Password"
             name="password"
-            onChange={(e) => handelChange(e)}
+            onChange={handleChange}
           />
           <button type="submit">Login User</button>
 
