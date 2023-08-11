@@ -21,12 +21,12 @@ function Login() {
     theme: "dark",
   };
 
-  // useEffect(()=> {     //should v add
-  //   if(localStorage.getItem("chat-app-user")) 
-  //   {
-  //     navigate('/')
-  //   }
-  // },[])
+  useEffect(()=> {     //should v add
+    if(localStorage.getItem("chat-app-user")) 
+    {
+      navigate('/')
+    }
+  },[])
 
   const handelSubmit = async (event) => {
     event.preventDefault();
