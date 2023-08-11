@@ -3,7 +3,7 @@ import Robot from "../assects/robot.gif";
 import './Welcome.css';
 
 function Welcome({ currentuser }) {
-  console.log(currentuser.user.username);
+//   console.log(currentuser.user.username);
   return (
     <div className="container3">
         <img src={Robot} alt="Robot" />
