@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assects/logo.svg";
 import "./Register.css";
@@ -21,6 +21,13 @@ function Login() {
     theme: "dark",
   };
 
+  // useEffect(()=> {     //should v add
+  //   if(localStorage.getItem("chat-app-user")) 
+  //   {
+  //     navigate('/')
+  //   }
+  // },[])
+
   const handelSubmit = async (event) => {
     event.preventDefault();
     if (handelValidation()) {
@@ -34,7 +41,7 @@ function Login() {
         // console.log(data ,  status)
         if(data.status === false)
         {
-          console.log(data ,  status)
+          // console.log(data ,  status)
           toast.error(data.msg, toastVeriable);
         }
         else
@@ -42,13 +49,6 @@ function Login() {
             localStorage.setItem("chat-app-user", JSON.stringify(data));
             navigate("/");
         }
-        // if (data.ststus === false) {
-        //   toast.error(data.msg, toastVeriable);
-        // }
-        // if (data === true) {
-        //   localStorage.setItem("chat-app-user", JSON.stringify(data.user)); // pass user information i localstorage in not json formate
-        //   navigate("/");
-        // }
       } catch (err) {
         console.log(err.message);
       }

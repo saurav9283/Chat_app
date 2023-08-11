@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assects/logo.svg";
 import "./Register.css";
@@ -23,6 +23,13 @@ function Register() {
     theme: "dark",
   };
 
+  // useEffect(()=> {  //should v add
+  //   if(localStorage.getItem("chat-app-user")) 
+  //   {
+  //     navigate('/')
+  //   }
+  // },[])
+
   const handelSubmit = async (event) => {
     event.preventDefault();
     if (handelValidation()) {
@@ -41,7 +48,7 @@ function Register() {
           process.env.REACT_APP_LOCALHOST_KEY,
           JSON.stringify(data.user)
         );
-        navigate("/");
+        navigate("/Avatar");
       }
     }
   };
