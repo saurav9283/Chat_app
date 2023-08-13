@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./Chat.css";
 import { useNavigate } from "react-router-dom";
 import Contacts from "../component/Contacts";
-import { allusersRoute } from "../utile/APIRouts.js";
+import { allusersRoute , host } from "../utile/APIRouts.js";
 import { setAvatar } from "../pages/Avatar.js";
 import Welcome from "../component/Welcome";
 import ChatContainer from "../component/ChatContainer";
+import {io} from 'socket.io-client';
 
 function Chat() {
+  const socket = useRef();
   const navigate = useNavigate();
   const [contacts, setcontacts] = useState([]);
   const [currentuser, setCurrentUser] = useState(undefined);
@@ -31,6 +33,14 @@ function Chat() {
 
     fetchuser();
   }, []);
+
+  useEffect(()=> {
+    if(currentuser) //  when currentuser is login soo add to the global map
+    {
+    socket.current = io(host);
+    socket.current.emit("add-user" , currentuser.user._id)
+    }
+  },[currentuser])
 
   useEffect(() => {
     // for fetching the contacts details
@@ -59,10 +69,10 @@ function Chat() {
   return (
     <div className="box">
       <div className="container2">
-        <Contacts contacts={contacts} currentuser={currentuser} changeChat = {handelChatChange} />
+        <Contacts contacts={contacts} currentuser={currentuser} changeChat = {handelChatChange} socket={socket}/>
         {
           isloaded && currentChat === undefined ?
-          (<Welcome currentuser={currentuser} />) : (<ChatContainer currentChat={currentChat}/>)
+          (<Welcome currentuser={currentuser} />) : (<ChatContainer currentChat={currentChat} currentuser={currentuser}/>)
         }
 
       </div>
